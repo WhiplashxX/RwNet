@@ -1,0 +1,4 @@
+2023-08-16 19:55:49,185 - __main__ - INFO - {'data': 'D:\\MINET\\data\\train.pkl', 'batch_size': 500, 'learning_rate': 0.0002, 'weight_decay': 0, 'dropout': 0, 'init': 0.01, 'dynamic_type': 'power', 'seed': 3448, 'load_data': False, 'scale': False, 'n_train': 3350, 'n_test': 500}
+2023-08-16 19:56:28,655 - __main__ - INFO - epoch: 10, eval_mse 0.00004
+2023-08-16 19:57:09,302 - __main__ - INFO - epoch: 20, eval_mse 0.00002
+2023-08-16 19:57:48,915 - __main__ - INFO - epoch: 30, eval_mse 0.00001
