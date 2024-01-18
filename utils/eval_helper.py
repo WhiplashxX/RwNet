@@ -1,6 +1,7 @@
 import pandas as pd
 import torch
 import time
+import math
 
 from data.dataset import get_iter
 from utils.log_helper import save_obj, load_obj
@@ -24,6 +25,9 @@ def eval(model, args):
     t_grid_hat = torch.zeros(n_test)
     t_grid = torch.zeros(n_test)
     mse_id = torch.zeros(n_test)
+    amse_id = torch.zeros(n_test)
+    mise_id = torch.zeros(n_test)
+    pepe_id = torch.zeros(n_test)
 
     starttime = time.time()
 
@@ -73,6 +77,9 @@ def eval(model, args):
         ture_out = y  # 获取真实的输出值
         t_grid[i] = y.mean()  # 计算真实的 t 格点均值
         mse_id[i] = ((out - ture_out).squeeze() ** 2).mean()  # 计算均方误差
+        amse_id[i] = ((out - ture_out).squeeze() ** 2).mean()  #
+        mise_id[i] = ((out - ture_out).squeeze() ** 2).mean()  #
+        pepe_id[i] = math.sqrt(((out - ture_out).squeeze() ** 2).mean())  #
 
     estimation = t_grid_hat.cpu().numpy()
     savet = t.cpu().numpy()
@@ -84,12 +91,15 @@ def eval(model, args):
 
     mse = ((t_grid_hat.squeeze() - t_grid.squeeze()) ** 2).mean().data
     mse_id = mse_id.mean().data
+    amse = 1
+    mise = 1
+    pepe = pepe_id.mean().data
 
     endtime = time.time()
 
     print('eval time cost {:.3f}'.format(endtime - starttime))
 
-    return t_grid_hat, mse, mse_id
+    return t_grid_hat, mse, pepe, mse_id
 
 # 在主函数中，经过一定的训练轮次后，会调用 eval 函数来对模型进行评估。这个函数的主要作用包括：
 #

@@ -51,8 +51,9 @@ def main():
     for epoch, model, loss in train(model, train_data, args):
         print("epoch:", epoch, "loss=", loss)
         if epoch % args.verbose == 0:
-            _, mse, _ = eval(model, args)
+            _, mse, pepe, _ = eval(model, args)
             print('eval_mse {:.5f}'.format(mse))
+            print('eval_pepe {:.5f}'.format(pepe))
 
             if logger:
                 logger.info('epoch: {}, eval_mse {:.5f}'.format(epoch, mse))
